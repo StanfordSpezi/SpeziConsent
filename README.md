@@ -1,6 +1,6 @@
 <!--
                   
-This source file is part of the TemplatePackage open source project
+This source file is part of the Stanford Spezi open source project
 
 SPDX-FileCopyrightText: 2022 Stanford University and the project authors (see CONTRIBUTORS.md)
 
@@ -8,7 +8,7 @@ SPDX-License-Identifier: MIT
              
 -->
 
-# TemplatePackage
+# SpeziConsent
 
 [![Build and Test](https://github.com/StanfordBDHG/SwiftPackageTemplate/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/StanfordBDHG/SwiftPackageTemplate/actions/workflows/build-and-test.yml)
 [![codecov](https://codecov.io/gh/StanfordBDHG/SwiftPackageTemplate/branch/main/graph/badge.svg?token=X7BQYSUKOH)](https://codecov.io/gh/StanfordBDHG/SwiftPackageTemplate)
@@ -44,12 +44,12 @@ The project can be added to your Xcode project or Swift Package using the [Swift
 
 
 ## License
-This project is licensed under the MIT License. See [Licenses](https://github.com/StanfordBDHG/TemplatePackage/tree/main/LICENSES) for more information.
+This project is licensed under the MIT License. See [Licenses](https://github.com/StanfordBDHG/SpeziConsent/tree/main/LICENSES) for more information.
 
 
 ## Contributors
 This project is developed as part of the Stanford Byers Center for Biodesign at Stanford University.
-See [CONTRIBUTORS.md](https://github.com/StanfordBDHG/TemplatePackage/tree/main/CONTRIBUTORS.md) for a full list of all TemplatePackage contributors.
+See [CONTRIBUTORS.md](https://github.com/StanfordBDHG/SpeziConsent/tree/main/CONTRIBUTORS.md) for a full list of all SpeziConsent contributors.
 
 ![Stanford Byers Center for Biodesign Logo](https://raw.githubusercontent.com/StanfordBDHG/.github/main/assets/biodesign-footer-light.png#gh-light-mode-only)
 ![Stanford Byers Center for Biodesign Logo](https://raw.githubusercontent.com/StanfordBDHG/.github/main/assets/biodesign-footer-dark.png#gh-dark-mode-only)

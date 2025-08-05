@@ -1,5 +1,5 @@
 #
-# This source file is part of the TemplatePackage open source project
+# This source file is part of the Stanford Spezi open source project
 #
 # SPDX-FileCopyrightText: 2022 Stanford University and the project authors (see CONTRIBUTORS.md)
 #
@@ -22,42 +22,42 @@ jobs:
     name: Build and Test Swift Package iOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     with:
-      scheme: TemplatePackage
-      resultBundle: TemplatePackage-iOS.xcresult
-      artifactname: TemplatePackage-iOS.xcresult
+      scheme: SpeziConsent
+      resultBundle: SpeziConsent-iOS.xcresult
+      artifactname: SpeziConsent-iOS.xcresult
   packagewatchos:
     name: Build and Test Swift Package watchOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     with:
-      scheme: TemplatePackage
+      scheme: SpeziConsent
       destination: 'platform=watchOS Simulator,name=Apple Watch Series 10 (46mm)'
-      resultBundle: TemplatePackage-watchOS.xcresult
-      artifactname: TemplatePackage-watchOS.xcresult
+      resultBundle: SpeziConsent-watchOS.xcresult
+      artifactname: SpeziConsent-watchOS.xcresult
   packagevisionos:
     name: Build and Test Swift Package visionOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     with:
       runsonlabels: '["macOS", "self-hosted"]'
-      scheme: TemplatePackage
+      scheme: SpeziConsent
       destination: 'platform=visionOS Simulator,name=Apple Vision Pro'
-      resultBundle: TemplatePackage-visionOS.xcresult
-      artifactname: TemplatePackage-visionOS.xcresult
+      resultBundle: SpeziConsent-visionOS.xcresult
+      artifactname: SpeziConsent-visionOS.xcresult
   packagetvos:
     name: Build and Test Swift Package tvOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     with:
-      scheme: TemplatePackage
-      resultBundle: TemplatePackage-tvOS.xcresult
+      scheme: SpeziConsent
+      resultBundle: SpeziConsent-tvOS.xcresult
       destination: 'platform=tvOS Simulator,name=Apple TV 4K (3rd generation)'
-      artifactname: TemplatePackage-tvOS.xcresult
+      artifactname: SpeziConsent-tvOS.xcresult
   packagemacos:
     name: Build and Test Swift Package macOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     with:
-      scheme: TemplatePackage
-      resultBundle: TemplatePackage-macOS.xcresult
+      scheme: SpeziConsent
+      resultBundle: SpeziConsent-macOS.xcresult
       destination: 'platform=macOS,arch=arm64'
-      artifactname: TemplatePackage-macOS.xcresult
+      artifactname: SpeziConsent-macOS.xcresult
   ios:
     name: Build and Test iOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
@@ -109,6 +109,6 @@ jobs:
     needs: [packageios, packagewatchos, packagevisionos, packagetvos, packagemacos, ios, ipados, watchos, visionos, tvos]
     uses: StanfordBDHG/.github/.github/workflows/create-and-upload-coverage-report.yml@v2
     with:
-      coveragereports: TemplatePackage-iOS.xcresult TemplatePackage-watchOS.xcresult TemplatePackage-visionOS.xcresult TemplatePackage-tvOS.xcresult TemplatePackage-macOS.xcresult TestApp-iOS.xcresult TestApp-iPadOS.xcresult TestApp-watchOS.xcresult TestApp-visionOS.xcresult TestApp-tvOS.xcresult
+      coveragereports: SpeziConsent-iOS.xcresult SpeziConsent-watchOS.xcresult SpeziConsent-visionOS.xcresult SpeziConsent-tvOS.xcresult SpeziConsent-macOS.xcresult TestApp-iOS.xcresult TestApp-iPadOS.xcresult TestApp-watchOS.xcresult TestApp-visionOS.xcresult TestApp-tvOS.xcresult
     secrets:
       token: ${{ secrets.CODECOV_TOKEN }}
