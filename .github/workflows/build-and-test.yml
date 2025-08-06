@@ -28,15 +28,6 @@ jobs:
       scheme: SpeziConsent
       resultBundle: SpeziConsent-iOS.xcresult
       artifactname: SpeziConsent-iOS.xcresult
-  packagewatchos:
-    name: Build and Test Swift Package watchOS
-    uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
-    with:
-      runsonlabels: '["macOS", "self-hosted"]'
-      scheme: SpeziConsent
-      destination: 'platform=watchOS Simulator,name=Apple Watch Series 10 (46mm)'
-      resultBundle: SpeziConsent-watchOS.xcresult
-      artifactname: SpeziConsent-watchOS.xcresult
   packagevisionos:
     name: Build and Test Swift Package visionOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
@@ -46,15 +37,6 @@ jobs:
       destination: 'platform=visionOS Simulator,name=Apple Vision Pro'
       resultBundle: SpeziConsent-visionOS.xcresult
       artifactname: SpeziConsent-visionOS.xcresult
-  packagetvos:
-    name: Build and Test Swift Package tvOS
-    uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
-    with:
-      runsonlabels: '["macOS", "self-hosted"]'
-      scheme: SpeziConsent
-      resultBundle: SpeziConsent-tvOS.xcresult
-      destination: 'platform=tvOS Simulator,name=Apple TV 4K (3rd generation)'
-      artifactname: SpeziConsent-tvOS.xcresult
   packagemacos:
     name: Build and Test Swift Package macOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
@@ -93,21 +75,11 @@ jobs:
       destination: 'platform=visionOS Simulator,name=Apple Vision Pro'
       resultBundle: TestApp-visionOS.xcresult
       artifactname: TestApp-visionOS.xcresult
-  tvos:
-    name: Build and Test tvOS
-    uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
-    with:
-      runsonlabels: '["macOS", "self-hosted"]'
-      path: 'Tests/UITests'
-      scheme: TestApp
-      destination: 'platform=tvOS Simulator,name=Apple TV 4K (3rd generation)'
-      resultBundle: TestApp-tvOS.xcresult
-      artifactname: TestApp-tvOS.xcresult
   uploadcoveragereport:
     name: Upload Coverage Report
-    needs: [packageios, packagewatchos, packagevisionos, packagetvos, packagemacos, ios, ipados, visionos, tvos]
+    needs: [packageios, packagevisionos, packagemacos, ios, ipados, visionos]
     uses: StanfordBDHG/.github/.github/workflows/create-and-upload-coverage-report.yml@v2
     with:
-      coveragereports: SpeziConsent-iOS.xcresult SpeziConsent-watchOS.xcresult SpeziConsent-visionOS.xcresult SpeziConsent-tvOS.xcresult SpeziConsent-macOS.xcresult TestApp-iOS.xcresult TestApp-iPadOS.xcresult TestApp-watchOS.xcresult TestApp-visionOS.xcresult TestApp-tvOS.xcresult
+      coveragereports: SpeziConsent-iOS.xcresult SpeziConsent-visionOS.xcresult SpeziConsent-macOS.xcresult TestApp-iOS.xcresult TestApp-iPadOS.xcresult TestApp-visionOS.xcresult
     secrets:
       token: ${{ secrets.CODECOV_TOKEN }}
