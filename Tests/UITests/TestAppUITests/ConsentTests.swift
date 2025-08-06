@@ -48,24 +48,25 @@ final class ConsentTests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
         XCTAssert(app.wait(for: .runningForeground, timeout: 2.0))
-        let standaloneSection = app.collectionViews.otherElements["Section:Standalone"]
         
-        standaloneSection.buttons["Knee Replacement Study Consent Form"].tap()
+        let standaloneSection = app.collectionViews.otherElements["Section:Standalone"]
+        let consentTitle = "Knee Replacement Study Consent Form"
+        
+        standaloneSection.buttons[consentTitle].tap()
         try app.fillOutInteractiveConsent(
             consentTitle: "Knee Replacement Study Consent Form",
             consentText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
             continueButton: app.navigationBars.buttons["Done"]
         )
         
-        XCTAssert(standaloneSection.buttons["Interactive (Rendered)"].isEnabled)
-        standaloneSection.buttons["Interactive (Rendered)"].tap()
+        XCTAssert(standaloneSection.buttons["\(consentTitle) (Rendered)"].isEnabled)
+        standaloneSection.buttons["\(consentTitle) (Rendered)"].tap()
         
-        XCTAssert(app.staticTexts["Interactive PDF rendering exists"].waitForExistence(timeout: 1))
+        XCTAssert(app.staticTexts["\(consentTitle) PDF rendering exists"].waitForExistence(timeout: 1))
         XCTAssert(app.staticTexts["data-sharing, true"].exists)
         XCTAssert(app.staticTexts["select1, m"].exists)
         XCTAssert(app.staticTexts["select2, n"].exists)
         XCTAssert(app.staticTexts["Name, Leland Stanford"].waitForExistence(timeout: 1))
-        
         app.navigationBars.buttons["Next"].tap()
     }
     
