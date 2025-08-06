@@ -21,7 +21,6 @@ concurrency:
 
 jobs:
   package_tests:
-    uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     strategy:
       matrix:
         include:
@@ -32,6 +31,7 @@ jobs:
           - platform: visionOS
             destination: 'platform=visionOS Simulator,name=Apple Vision Pro'
     name: Build and Test Swift Package ${{ matrix.destination }}
+    uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     with:
       runsonlabels: '["macOS", "self-hosted"]'
       scheme: SpeziConsent
@@ -39,8 +39,6 @@ jobs:
       resultBundle: ${{ format('SpeziConsent-{0}.xcresult', matrix.platform) }}
       artifactname: ${{ format('SpeziConsent-{0}.xcresult', matrix.platform) }}
   ui_tests:
-    name: Build and Test UI Tests
-    uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     strategy:
       matrix:
         include:
@@ -50,6 +48,8 @@ jobs:
             destination: 'platform=iOS Simulator,name=iPad Air 13-inch (M3)'
           - platform: visionOS
             destination: 'platform=visionOS Simulator,name=Apple Vision Pro'
+    name: Build and Test UI Tests ${{ matrix.platform }}
+    uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     with:
       runsonlabels: '["macOS", "self-hosted"]'
       path: 'Tests/UITests'
