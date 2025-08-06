@@ -6,16 +6,20 @@
 // SPDX-License-Identifier: MIT
 //
 
+import Spezi
 import SwiftUI
-import SpeziConsent
 
 
 @main
 struct UITestsApp: App {
+    @UIApplicationDelegateAdaptor(TestAppDelegate.self) var delegate
+    
     var body: some Scene {
         WindowGroup {
-            Text(SpeziConsent().stanford)
-            Text(operatingSystem)
+            NavigationStack {
+                ContentView()
+            }
+            .spezi(delegate)
         }
     }
 }
