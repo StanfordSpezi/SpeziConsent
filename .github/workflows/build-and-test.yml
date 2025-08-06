@@ -9,15 +9,17 @@
 name: Build and Test
 
 on:
-  workflow_call:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: Build-and-Test-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  reuse_action:
-    name: REUSE Compliance Check
-    uses: StanfordBDHG/.github/.github/workflows/reuse.yml@v2
-  swiftlint:
-    name: SwiftLint
-    uses: StanfordBDHG/.github/.github/workflows/swiftlint.yml@v2
   packageios:
     name: Build and Test Swift Package iOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
