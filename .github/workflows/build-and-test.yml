@@ -22,6 +22,7 @@ jobs:
     name: Build and Test Swift Package iOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     with:
+      runsonlabels: '["macOS", "self-hosted"]'
       scheme: SpeziConsent
       resultBundle: SpeziConsent-iOS.xcresult
       artifactname: SpeziConsent-iOS.xcresult
@@ -29,6 +30,7 @@ jobs:
     name: Build and Test Swift Package watchOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     with:
+      runsonlabels: '["macOS", "self-hosted"]'
       scheme: SpeziConsent
       destination: 'platform=watchOS Simulator,name=Apple Watch Series 10 (46mm)'
       resultBundle: SpeziConsent-watchOS.xcresult
@@ -46,6 +48,7 @@ jobs:
     name: Build and Test Swift Package tvOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     with:
+      runsonlabels: '["macOS", "self-hosted"]'
       scheme: SpeziConsent
       resultBundle: SpeziConsent-tvOS.xcresult
       destination: 'platform=tvOS Simulator,name=Apple TV 4K (3rd generation)'
@@ -54,6 +57,7 @@ jobs:
     name: Build and Test Swift Package macOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     with:
+      runsonlabels: '["macOS", "self-hosted"]'
       scheme: SpeziConsent
       resultBundle: SpeziConsent-macOS.xcresult
       destination: 'platform=macOS,arch=arm64'
@@ -62,6 +66,7 @@ jobs:
     name: Build and Test iOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     with:
+      runsonlabels: '["macOS", "self-hosted"]'
       path: 'Tests/UITests'
       scheme: TestApp
       resultBundle: TestApp-iOS.xcresult
@@ -70,6 +75,7 @@ jobs:
     name: Build and Test iPadOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     with:
+      runsonlabels: '["macOS", "self-hosted"]'
       path: 'Tests/UITests'
       scheme: TestApp
       destination: 'platform=iOS Simulator,name=iPad Air 13-inch (M2)'
@@ -99,6 +105,7 @@ jobs:
     name: Build and Test tvOS
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     with:
+      runsonlabels: '["macOS", "self-hosted"]'
       path: 'Tests/UITests'
       scheme: TestApp
       destination: 'platform=tvOS Simulator,name=Apple TV 4K (3rd generation)'
