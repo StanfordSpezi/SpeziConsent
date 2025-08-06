@@ -53,7 +53,12 @@ struct RenderedConsentDocumentView: View {
                             let value = exportResult.userResponses.signatures[signatureId]! // swiftlint:disable:this force_unwrapping
                             LabeledContent("Name", value: value.name.formatted())
                             LabeledContent("Signature") {
-                                let image = value.signature.image(from: value.signature.bounds, scale: UIScreen.main.scale)
+                                #if os(iOS)
+                                let scale: CGFloat = UIScreen.main.scale
+                                #else
+                                let scale: CGFloat = 3
+                                #endif
+                                let image = value.signature.image(from: value.signature.bounds, scale: scale)
                                 Image(uiImage: image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
