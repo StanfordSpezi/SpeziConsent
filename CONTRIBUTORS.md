@@ -11,9 +11,8 @@ SPDX-License-Identifier: MIT
 SpeziConsent contributors
 ====================
 
-* [Paul Schmiedmayer](https://github.com/PSchmiedmayer)
-* [Vishnu Ravi](https://github.com/vishnuravi)
+* [Lukas Kollmer](https://github.com/lukaskollmer)
 * [Andreas Bauer](https://github.com/bauer-andreas)
 * [Philipp Zagar](https://github.com/philippzagar)
 * [Patrick Langer](https://github.com/RealLast)
-* [Lukas Kollmer](https://github.com/lukaskollmer)
+* [Paul Schmiedmayer](https://github.com/PSchmiedmayer)
