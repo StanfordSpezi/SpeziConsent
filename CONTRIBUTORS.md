@@ -2,7 +2,7 @@
 
 This source file is part of the Stanford Spezi open-source project.
 
-SPDX-FileCopyrightText: 2022 Stanford University and the project authors (see CONTRIBUTORS.md)
+SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see CONTRIBUTORS.md)
 
 SPDX-License-Identifier: MIT
   
@@ -15,4 +15,5 @@ SpeziConsent contributors
 * [Vishnu Ravi](https://github.com/vishnuravi)
 * [Andreas Bauer](https://github.com/bauer-andreas)
 * [Philipp Zagar](https://github.com/philippzagar)
+* [Patrick Langer](https://github.com/RealLast)
 * [Lukas Kollmer](https://github.com/lukaskollmer)

@@ -20,9 +20,6 @@ final class ConsentTests: XCTestCase {
     
     @MainActor
     func testStandaloneSimpleConsent() throws {
-        #if os(visionOS)
-        throw XCTSkip()
-        #endif
         let app = XCUIApplication()
         app.launch()
         XCTAssert(app.wait(for: .runningForeground, timeout: 2))
@@ -48,9 +45,6 @@ final class ConsentTests: XCTestCase {
     
     @MainActor
     func testStandaloneInteractiveConsent() throws {
-        #if os(visionOS)
-        throw XCTSkip()
-        #endif
         let app = XCUIApplication()
         app.launch()
         XCTAssert(app.wait(for: .runningForeground, timeout: 2.0))
@@ -79,9 +73,6 @@ final class ConsentTests: XCTestCase {
     
     @MainActor
     func testOnboardingConsent() throws {
-    #if os(visionOS)
-    throw XCTSkip()
-    #endif
         let app = XCUIApplication()
         app.launch()
         XCTAssert(app.wait(for: .runningForeground, timeout: 2.0))

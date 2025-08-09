@@ -1,10 +1,10 @@
-// swift-tools-version:6.0
+// swift-tools-version:6.1
 
 //
 // This source file is part of the Stanford Spezi open source project
 // 
-// SPDX-FileCopyrightText: 2022 Stanford University and the project authors (see CONTRIBUTORS.md)
-// 
+// SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see CONTRIBUTORS.md)
+//
 // SPDX-License-Identifier: MIT
 //
 
@@ -26,7 +26,7 @@ let package = Package(
         .package(url: "https://github.com/StanfordSpezi/Spezi.git", from: "1.8.0"),
         .package(url: "https://github.com/StanfordSpezi/SpeziFoundation.git", from: "2.2.0"),
         .package(url: "https://github.com/StanfordSpezi/SpeziViews.git", from: "1.12.0"),
-        .package(url: "https://github.com/StanfordSpezi/SpeziOnboarding.git", revision: "022eca7be1f6f54182f346d3f3a421992ddd5270"),
+        .package(url: "https://github.com/StanfordSpezi/SpeziOnboarding.git", revision: "9948c00c52230e124765b7d83147079cea55edd1"),
         .package(url: "https://github.com/techprimate/TPPDF.git", from: "2.6.1"),
         .package(url: "https://github.com/gonzalezreal/swift-markdown-ui.git", from: "2.4.1")
     ] + swiftLintPackage(),

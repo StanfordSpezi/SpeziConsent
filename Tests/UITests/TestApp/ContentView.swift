@@ -25,6 +25,7 @@ struct ContentView: View {
     
     @State private var presentedConsentDoc: PresentedConsentDocument?
     @State private var isPresentingOnboardingFlow = false
+    @State private var isPresentingScreenshotView = false
     
     var body: some View {
         Form {
@@ -44,6 +45,11 @@ struct ContentView: View {
             Section {
                 Button("Start Onboarding Flow") {
                     isPresentingOnboardingFlow = true
+                }
+            }
+            Section {
+                Button("Screenshots") {
+                    isPresentingScreenshotView = true
                 }
             }
         }
@@ -71,6 +77,11 @@ struct ContentView: View {
                 RenderedConsentDocumentView(docId: .first)
                 RenderedConsentDocumentView(docId: .second)
                 RenderedConsentDocumentView(docId: .interactive)
+            }
+        }
+        .sheet(isPresented: $isPresentingScreenshotView) {
+            ManagedNavigationStack {
+                ScreenshotView1()
             }
         }
     }

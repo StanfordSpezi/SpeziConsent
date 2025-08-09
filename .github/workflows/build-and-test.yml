@@ -1,7 +1,7 @@
 #
 # This source file is part of the Stanford Spezi open source project
 #
-# SPDX-FileCopyrightText: 2022 Stanford University and the project authors (see CONTRIBUTORS.md)
+# SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see CONTRIBUTORS.md)
 #
 # SPDX-License-Identifier: MIT
 #
@@ -21,42 +21,45 @@ concurrency:
 
 jobs:
   package_tests:
-    name: Build and Test Swift Package ${{ matrix.platform }}
+    name: Build and Test Swift Package ${{ matrix.platform.name }} (${{ matrix.config }})
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     strategy:
       matrix:
-        include:
-          - platform: iOS
+        config: [Debug, Release]
+        platform:
+          - name: iOS
             destination: 'platform=iOS Simulator,name=iPhone 16 Pro'
-          - platform: macOS
+          - name: macOS
             destination: 'platform=macOS,name=My Mac'
-          - platform: visionOS
+          - name: visionOS
             destination: 'platform=visionOS Simulator,name=Apple Vision Pro'
     with:
       runsonlabels: '["macOS", "self-hosted"]'
       scheme: SpeziConsent
-      destination: ${{ matrix.destination }}
-      resultBundle: ${{ format('SpeziConsent-{0}.xcresult', matrix.platform) }}
-      artifactname: ${{ format('SpeziConsent-{0}.xcresult', matrix.platform) }}
+      destination: ${{ matrix.platform.destination }}
+      buildConfig: ${{ matrix.config }}
+      resultBundle: ${{ format('SpeziConsent-{0}-{1}.xcresult', matrix.platform.name, matrix.config) }}
+      artifactname: ${{ format('SpeziConsent-{0}-{1}.xcresult', matrix.platform.name, matrix.config) }}
   ui_tests:
-    name: Build and Test UI Tests ${{ matrix.platform }}
+    name: Build and Test UI Tests ${{ matrix.platform.name }} (${{ matrix.config }})
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     strategy:
       matrix:
-        include:
-          - platform: iOS
+        config: [Debug, Release]
+        platform:
+          - name: iOS
             destination: 'platform=iOS Simulator,name=iPhone 16 Pro'
-          - platform: iPadOS
+          - name: iPadOS
             destination: 'platform=iOS Simulator,name=iPad Air 13-inch (M3)'
-          - platform: visionOS
+          - name: visionOS
             destination: 'platform=visionOS Simulator,name=Apple Vision Pro'
     with:
       runsonlabels: '["macOS", "self-hosted"]'
       path: 'Tests/UITests'
       scheme: TestApp
-      destination: ${{ matrix.destination }}
-      resultBundle: ${{ format('TestApp-{0}.xcresult', matrix.platform) }}
-      artifactname: ${{ format('TestApp-{0}.xcresult', matrix.platform) }}
+      destination: ${{ matrix.platform.destination }}
+      resultBundle: ${{ format('TestApp-{0}-{1}.xcresult', matrix.platform.name, matrix.config) }}
+      artifactname: ${{ format('TestApp-{0}-{1}.xcresult', matrix.platform.name, matrix.config) }}
   uploadcoveragereport:
     name: Upload Coverage Report
     needs: [package_tests, ui_tests]
