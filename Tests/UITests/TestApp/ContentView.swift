@@ -62,11 +62,13 @@ struct ContentView: View {
                     StandaloneConsent(docId: item.docId)
                 }
                 .interactiveDismissDisabled()
+                .adjustingSizeOnVisionOS()
             case .rendered:
                 NavigationStack {
                     RenderedConsentDocumentView(docId: item.docId)
                 }
                 .interactiveDismissDisabled()
+                .adjustingSizeOnVisionOS()
             }
         }
         .sheet(isPresented: $isPresentingOnboardingFlow) {
@@ -78,11 +80,24 @@ struct ContentView: View {
                 RenderedConsentDocumentView(docId: .second)
                 RenderedConsentDocumentView(docId: .interactive)
             }
+            .adjustingSizeOnVisionOS()
         }
         .sheet(isPresented: $isPresentingScreenshotView) {
             ManagedNavigationStack {
                 ScreenshotView1()
             }
+            .adjustingSizeOnVisionOS()
         }
+    }
+}
+
+
+extension View {
+    func adjustingSizeOnVisionOS() -> some View {
+        #if os(visionOS)
+        self.frame(width: 1250, height: 1250)
+        #else
+        self
+        #endif
     }
 }
