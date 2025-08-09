@@ -6,6 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
+// swiftlint:disable line_length
+
 import SpeziConsent
 import SpeziOnboarding
 import SpeziViews
@@ -41,7 +43,7 @@ struct ScreenshotView1: View {
                     
                     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
                     At vero eos et accusam et justo duo dolores et ea rebum.
-                    Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.                    
+                    Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
                     <signature id=sig1 />
                     """,
                 initialName: .init(givenName: "Leland", familyName: "Stanford")
