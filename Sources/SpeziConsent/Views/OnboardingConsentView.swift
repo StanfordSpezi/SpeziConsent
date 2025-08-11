@@ -56,12 +56,14 @@ public struct OnboardingConsentView: View {
                 try await action()
             } label: {
                 Text("CONSENT_ACTION", bundle: .module)
+                    .bold()
                     .frame(maxWidth: .infinity, minHeight: 38)
                     .processingOverlay(isProcessing: backButtonHidden)
             }
             .buttonStyle(.borderedProminent)
             .disabled(!actionButtonsEnabled)
             .animation(.easeInOut(duration: 0.2), value: actionButtonsEnabled)
+            .interactiveGlassEffect()
             .id("ActionButton")
         }
         .scrollDisabled(consentDocument?.isSigning == true)
@@ -107,6 +109,22 @@ public struct OnboardingConsentView: View {
     }
 }
 
+
+
+extension View {
+    @ViewBuilder
+    fileprivate func interactiveGlassEffect() -> some View {
+        #if !os(visionOS)
+        if #available(iOS 26, macOS 26, tvOS 26, watchOS 26, *) {
+            self.glassEffect(.regular.interactive())
+        } else {
+            self
+        }
+        #else
+        self
+        #endif
+    }
+}
 
 #if DEBUG
 #Preview {
