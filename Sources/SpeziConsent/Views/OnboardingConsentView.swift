@@ -110,7 +110,6 @@ public struct OnboardingConsentView: View {
 }
 
 
-
 extension View {
     @ViewBuilder
     fileprivate func interactiveGlassEffect() -> some View {
