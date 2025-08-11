@@ -29,7 +29,7 @@ SpeziConsent implements consent-flow-related infrastructure, providing both a da
     }
     @Column {
         @Image(source: "Consent3", alt: "Screenshot displaying an Interactive Consent Form with selection requirements.") {
-            If specified, the consent form will validate the user's selection against an expected value, preventing the user from advancing unless they pro
+            If specified, the consent form will validate the user's selection against an expected value, preventing the user from advancing unless they provide the correct response.
         }
     }
 }
