@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-// swiftlint:disable line_length
+// swiftlint:disable line_length file_types_order
 
 import SpeziConsent
 import SpeziOnboarding
