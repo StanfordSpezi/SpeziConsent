@@ -1,10 +1,10 @@
-// swift-tools-version:6.0
+// swift-tools-version:6.1
 
 //
-// This source file is part of the TemplatePackage open source project
+// This source file is part of the Stanford Spezi open source project
 // 
-// SPDX-FileCopyrightText: 2022 Stanford University and the project authors (see CONTRIBUTORS.md)
-// 
+// SPDX-FileCopyrightText: 2025 Stanford University and the project authors (see CONTRIBUTORS.md)
+//
 // SPDX-License-Identifier: MIT
 //
 
@@ -13,29 +13,47 @@ import PackageDescription
 
 
 let package = Package(
-    name: "TemplatePackage",
+    name: "SpeziConsent",
     platforms: [
         .iOS(.v17),
-        .watchOS(.v10),
         .visionOS(.v1),
-        .tvOS(.v17),
         .macOS(.v14)
     ],
     products: [
-        .library(name: "TemplatePackage", targets: ["TemplatePackage"])
+        .library(name: "SpeziConsent", targets: ["SpeziConsent"])
     ],
     dependencies: [
+        .package(url: "https://github.com/StanfordSpezi/Spezi.git", from: "1.8.0"),
+        .package(url: "https://github.com/StanfordSpezi/SpeziFoundation.git", from: "2.2.0"),
+        .package(url: "https://github.com/StanfordSpezi/SpeziViews.git", from: "1.12.0"),
+        .package(url: "https://github.com/StanfordSpezi/SpeziOnboarding.git", exact: "2.0.0-alpha.9"),
+        .package(url: "https://github.com/techprimate/TPPDF.git", from: "2.6.1"),
+        .package(url: "https://github.com/gonzalezreal/swift-markdown-ui.git", from: "2.4.1")
     ] + swiftLintPackage(),
     targets: [
         .target(
-            name: "TemplatePackage",
+            name: "SpeziConsent",
+            dependencies: [
+                .product(name: "Spezi", package: "Spezi"),
+                .product(name: "SpeziFoundation", package: "SpeziFoundation"),
+                .product(name: "SpeziViews", package: "SpeziViews"),
+                .product(name: "SpeziOnboarding", package: "SpeziOnboarding"),
+                .product(name: "SpeziPersonalInfo", package: "SpeziViews"),
+                .product(name: "TPPDF", package: "TPPDF"),
+                .product(name: "MarkdownUI", package: "swift-markdown-ui")
+            ],
+            resources: [.process("Resources")],
+            swiftSettings: [.enableUpcomingFeature("ExistentialAny")],
             plugins: [] + swiftLintPlugin()
         ),
         .testTarget(
-            name: "TemplatePackageTests",
+            name: "SpeziConsentTests",
             dependencies: [
-                .target(name: "TemplatePackage")
+                .target(name: "SpeziConsent"),
+                .product(name: "SpeziFoundation", package: "SpeziFoundation")
             ],
+            resources: [.process("Resources")],
+            swiftSettings: [.enableUpcomingFeature("ExistentialAny")],
             plugins: [] + swiftLintPlugin()
         )
     ]
