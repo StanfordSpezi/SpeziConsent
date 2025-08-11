@@ -85,6 +85,8 @@ struct ContentView: View {
         .sheet(isPresented: $isPresentingScreenshotView) {
             ManagedNavigationStack {
                 ScreenshotView1()
+                ScreenshotView2()
+                ScreenshotView3()
             }
             .adjustingSizeOnVisionOS()
         }

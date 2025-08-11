@@ -26,7 +26,7 @@ let package = Package(
         .package(url: "https://github.com/StanfordSpezi/Spezi.git", from: "1.8.0"),
         .package(url: "https://github.com/StanfordSpezi/SpeziFoundation.git", from: "2.2.0"),
         .package(url: "https://github.com/StanfordSpezi/SpeziViews.git", from: "1.12.0"),
-        .package(url: "https://github.com/StanfordSpezi/SpeziOnboarding.git", revision: "9948c00c52230e124765b7d83147079cea55edd1"),
+        .package(url: "https://github.com/StanfordSpezi/SpeziOnboarding.git", exact: "2.0.0-alpha.9"),
         .package(url: "https://github.com/techprimate/TPPDF.git", from: "2.6.1"),
         .package(url: "https://github.com/gonzalezreal/swift-markdown-ui.git", from: "2.4.1")
     ] + swiftLintPackage(),

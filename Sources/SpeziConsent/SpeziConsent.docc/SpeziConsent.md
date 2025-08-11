@@ -10,17 +10,37 @@ SPDX-License-Identifier: MIT
              
 -->
 
-Present your user a consent document to read, sign, and share.
+Present your user consent documents to read, sign, and export.
 
 ## Overview
 
-SpeziConsent implements consent-flow-related infrastructure, providing both data models (``ConsentDocument``) and view types (``ConsentDocumentView``, ``OnboardingConsentView``, etc) for integrating Markdown-based consent documents into your app.
+SpeziConsent implements consent-flow-related infrastructure, providing both a data model (``ConsentDocument``) and views (``ConsentDocumentView``, ``OnboardingConsentView``, etc) for integrating Markdown-based consent documents into your app.
 
-You app uses SpeziConsent by creating a ``ConsentDocument`` from a Markdown String or file.
+@Row {
+    @Column {
+        @Image(source: "Consent1", alt: "Screenshot displaying a simple consent form") {
+            At its core, a ``ConsentDocument`` is a simple markdown document which the user is asked to sign.
+        }
+    }
+    @Column {
+        @Image(source: "Consent2", alt: "Screenshot displaying an interactive consent form") {
+            In addition to standard markdown elements, the consent form may also contain custom, interactive toggle or selection components.
+        }
+    }
+    @Column {
+        @Image(source: "Consent3", alt: "Screenshot displaying an Interactive Consent Form with selection requirements.") {
+            If specified, the consent form will validate the user's selection against an expected value, preventing the user from advancing unless they pro
+        }
+    }
+}
+
+
+You app uses SpeziConsent by creating a ``ConsentDocument`` from a Markdown string or file.
 A consent form consists of Markdown content (e.g.: text, headings, lists, etc), and can also contain custom interactive elements which enable support for simple user data collection directly as part of filling out the consent form.
 For example, your app could define a consent document consisting of markdown text, followed by a toggle (which the user needs to explicitly set to true in order to confirm their willingness to participate in your study), and a signature field where the user needs to sign their signature.
 
-The ``ConsentDocument``, which represents an interactive consent form, is then passed into e.g. a ``OnboardingConsentView`` or a ``ConsentDocumentView``, which present the consent form to a user, and allow the user to fill out the form's interactive elements.
+The ``ConsentDocument`` type handles the state of a (potentially interactive) consent form; it is passed into e.g. a ``ConsentDocumentView`` or an ``OnboardingConsentView``, which present the consent form to a user, allowing them to sign the form and fill out its interactive elements.
+Once the user has completed the form, you use the ``ConsentDocument/export(using:)`` function to obtain a PDF representation of the signed document.
 
 
 ### Consent Views
@@ -73,6 +93,8 @@ ManagedNavigationStack {
     //
 }
 ```
+
+> Note: The [`ManagedNavigationStack`](https://swiftpackageindex.com/stanfordspezi/speziviews/documentation/speziviews/managednavigationstack) in the example above is from the [SpeziViews](https://github.com/StanfordSpezi/SpeziViews) package.
 
 ### Consent Documents
 
