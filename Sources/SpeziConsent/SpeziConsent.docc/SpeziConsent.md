@@ -35,7 +35,7 @@ SpeziConsent implements consent-flow-related infrastructure, providing both a da
 }
 
 
-You app uses SpeziConsent by creating a ``ConsentDocument`` from a Markdown string or file.
+Your app uses SpeziConsent by creating a ``ConsentDocument`` from a Markdown string or file.
 A consent form consists of Markdown content (e.g.: text, headings, lists, etc), and can also contain custom interactive elements which enable support for simple user data collection directly as part of filling out the consent form.
 For example, your app could define a consent document consisting of markdown text, followed by a toggle (which the user needs to explicitly set to true in order to confirm their willingness to participate in your study), and a signature field where the user needs to sign their signature.
 
@@ -130,9 +130,13 @@ Please sign to confirm your participation:
 
 ### Model
 - ``ConsentDocument``
+- ``ConsentDocument/ExportConfiguration``
+- ``ConsentDocument/ExportResult``
+- ``ConsentDocument/ConsentCompletionState``
 
 ### Views
 - ``ConsentDocumentView``
 - ``OnboardingConsentView``
 - ``ConsentSignatureForm``
 - ``SignatureView``
+- ``ConsentShareButton``
