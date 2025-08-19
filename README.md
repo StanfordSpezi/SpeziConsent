@@ -65,6 +65,7 @@ The view also uses the [`ConsentShareButton`](https://swiftpackageindex.com/stan
 
 ```swift
 import SpeziConsent
+import SpeziViews
 import SwiftUI
 
 struct ConsentStep: View {
@@ -74,7 +75,7 @@ struct ConsentStep: View {
     @State private var viewState: ViewState = .idle
     
     var body: some View {
-        OnboardingConsentView(consentDocument: consentDocument) {
+        OnboardingConsentView(consentDocument: consentDocument, viewState: $viewState) {
             // advance your Onboarding flow in response to the user having confirmed a completed consent document
         }
         .viewStateAlert(state: $viewState)

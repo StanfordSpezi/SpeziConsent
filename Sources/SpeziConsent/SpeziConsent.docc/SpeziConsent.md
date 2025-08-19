@@ -49,6 +49,10 @@ The following example creates a simple, reusable `ConsentStep` view which can be
 The view implements both dynamic consent form loading from a file URL (e.g.: a resource in your app's bundle),
 and also provides a share button in the top-right corner, allowing participants to keep a personal copy of the consent form they signed.
 ```swift
+import SpeziConsent
+import SpeziViews
+import SwiftUI
+
 struct ConsentStep: View {
     let url: URL
     
@@ -56,7 +60,7 @@ struct ConsentStep: View {
     @State private var viewState: ViewState = .idle
     
     var body: some View {
-        OnboardingConsentView(consentDocument: consentDocument) {
+        OnboardingConsentView(consentDocument: consentDocument, viewState: $viewState) {
             // advance your Onboarding flow in response to the user having confirmed a completed consent document
         }
         .viewStateAlert(state: $viewState)
@@ -84,6 +88,8 @@ struct ConsentStep: View {
 
 Your app would then use this `ConsentStep` when building up its Onboarding Stack:
 ```swift
+import SpeziViews
+
 ManagedNavigationStack {
     Welcome()
     EligibilityScreening()
