@@ -1,6 +1,6 @@
 <!--
                   
-This source file is part of the Stanford Spezi open source project
+This source file is part of the Stanford Spezi open-source project
 
 SPDX-FileCopyrightText: 2022 Stanford University and the project authors (see CONTRIBUTORS.md)
 
@@ -16,12 +16,12 @@ SPDX-License-Identifier: MIT
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FStanfordSpezi%2FSpeziConsent%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/StanfordSpezi/SpeziConsent)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FStanfordSpezi%2FSpeziConsent%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/StanfordSpezi/SpeziConsent)
 
-Provides UI components for Consent handling in your iOS app.
+Provides UI components for consent handling in your app.
 
 
 ## Overview
 
-The SpeziConsent module provides utilities for retrieving consent for e.g. a study participation
+The SpeziConsent module provides utilities for retrieving consent for e.g. study participation.
 
 
 <table style="width: 80%">
