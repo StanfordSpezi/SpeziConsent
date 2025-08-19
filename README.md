@@ -1,6 +1,6 @@
 <!--
                   
-This source file is part of the Stanford Spezi open source project
+This source file is part of the Stanford Spezi open-source project
 
 SPDX-FileCopyrightText: 2022 Stanford University and the project authors (see CONTRIBUTORS.md)
 
@@ -13,15 +13,15 @@ SPDX-License-Identifier: MIT
 [![Build and Test](https://github.com/StanfordSpezi/SpeziConsent/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/StanfordSpezi/SpeziConsent/actions/workflows/build-and-test.yml)
 [![codecov](https://codecov.io/gh/StanfordSpezi/SpeziConsent/branch/main/graph/badge.svg?token=X7BQYSUKOH)](https://codecov.io/gh/StanfordSpezi/SpeziConsent)
 [![DOI](https://zenodo.org/badge/573230182.svg)](https://zenodo.org/badge/latestdoi/573230182)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FStanfordBDHG%2FSwiftPackageTemplate%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/StanfordSpezi/SpeziConsent)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FStanfordBDHG%2FSwiftPackageTemplate%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/StanfordSpezi/SpeziConsent)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FStanfordSpezi%2FSpeziConsent%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/StanfordSpezi/SpeziConsent)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FStanfordSpezi%2FSpeziConsent%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/StanfordSpezi/SpeziConsent)
 
-Provides UI components for Consent handling in your iOS app.
+Provides UI components for consent handling in your app.
 
 
 ## Overview
 
-The SpeziConsent module provides utilities for retrieving consent for e.g. a study participation
+The SpeziConsent module provides utilities for retrieving consent for e.g. study participation.
 
 
 <table style="width: 80%">
@@ -55,8 +55,6 @@ The SpeziConsent module provides utilities for retrieving consent for e.g. a stu
 
 ### Onboarding Consent View
 
-SpeziConsent provides
-
 The [`OnboardingConsentView`](https://swiftpackageindex.com/stanfordspezi/speziconsent/documentation/speziconsent/onboardingconsentview) can be used to allow your users to read and agree to a document, e.g., a consent document for a research study or a terms and conditions document for an app. The document can be signed using a family and given name and a hand-drawn signature. The signed consent form can then be exported and shared as a PDF file.
 
 The following example demonstrates how the [`OnboardingConsentView`](https://swiftpackageindex.com/stanfordspezi/speziconsent/documentation/speziconsent/onboardingconsentview) shown above is constructed by reading a consent form from a markdown file, creating a [`ConsentDocument`](https://swiftpackageindex.com/stanfordspezi/speziconsent/documentation/speziconsent/consentdocument) and passing it to the `OnboardingConsentView`, and  an action that should be performed once the consent has been given (which receives the exported consent form as a PDF), as well as a configuration defining the properties of the exported consent form.
@@ -67,6 +65,7 @@ The view also uses the [`ConsentShareButton`](https://swiftpackageindex.com/stan
 
 ```swift
 import SpeziConsent
+import SpeziViews
 import SwiftUI
 
 struct ConsentStep: View {
@@ -76,7 +75,7 @@ struct ConsentStep: View {
     @State private var viewState: ViewState = .idle
     
     var body: some View {
-        OnboardingConsentView(consentDocument: consentDocument) {
+        OnboardingConsentView(consentDocument: consentDocument, viewState: $viewState) {
             // advance your Onboarding flow in response to the user having confirmed a completed consent document
         }
         .viewStateAlert(state: $viewState)
@@ -118,7 +117,7 @@ Contributions to this project are welcome. Please make sure to read the [contrib
 
 ## License
 
-This project is licensed under the MIT License. See [Licenses](https://github.com/StanfordSpezi/speziconsent/tree/main/LICENSES) for more information.
+This project is licensed under the MIT License. See [Licenses](https://github.com/StanfordSpezi/SpeziConsent/tree/main/LICENSES) for more information.
 
-![Spezi Footer](https://raw.githubusercontent.com/StanfordSpezi/.github/main/assets/FooterLight.png#gh-light-mode-only)
-![Spezi Footer](https://raw.githubusercontent.com/StanfordSpezi/.github/main/assets/FooterDark.png#gh-dark-mode-only)
+![Spezi Footer](https://raw.githubusercontent.com/StanfordSpezi/.github/main/assets/Footer.png#gh-light-mode-only)
+![Spezi Footer](https://raw.githubusercontent.com/StanfordSpezi/.github/main/assets/Footer~dark.png#gh-dark-mode-only)
