@@ -43,7 +43,10 @@ let package = Package(
                 .product(name: "MarkdownUI", package: "swift-markdown-ui")
             ],
             resources: [.process("Resources")],
-            swiftSettings: [.enableUpcomingFeature("ExistentialAny")],
+            swiftSettings: [
+                .enableUpcomingFeature("ExistentialAny"),
+                .enableUpcomingFeature("InternalImportsByDefault")
+            ],
             plugins: [] + swiftLintPlugin()
         ),
         .testTarget(

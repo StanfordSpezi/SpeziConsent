@@ -6,12 +6,13 @@
 // SPDX-License-Identifier: MIT
 //
 
-import Foundation
-import MarkdownUI
-import PencilKit
-import SpeziPersonalInfo
-import SpeziViews
-import SwiftUI
+public import Foundation
+private import MarkdownUI
+private import PencilKit
+private import SpeziFoundation
+private import SpeziPersonalInfo
+private import SpeziViews
+public import SwiftUI
 
 /// Display a markdown-based ``ConsentDocument`` that can be filled out, signed, and exported.
 ///

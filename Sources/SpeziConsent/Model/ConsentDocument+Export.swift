@@ -7,9 +7,9 @@
 //
 
 import PDFKit
-import PencilKit
-import SwiftUI
-import TPPDF
+private import PencilKit
+import SpeziFoundation
+private import TPPDF
 
 
 @MainActor

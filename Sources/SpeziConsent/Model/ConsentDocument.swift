@@ -6,11 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
-import Foundation
-import PencilKit
-import SpeziFoundation
+private import Foundation
+public import Observation
+public import PencilKit
+public import SpeziFoundation
 import SwiftUI
-import class PDFKit.PDFDocument
+public import class PDFKit.PDFDocument
 
 
 /// Represents and manages a Markdown-based (potentially interactive) Consent Document.
