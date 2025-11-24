@@ -21,12 +21,25 @@ extension ConsentDocument.Section {
         guard let id = element[attribute: "id"], !id.isEmpty else {
             throw .missingAttribute("id")
         }
-        guard case .text(let prompt) = element.content.first else {
+        guard !element.content.isEmpty else {
             throw .missingField("prompt")
         }
+        let textContent = try ConsentDocument.InteractiveSectionTextContent(blocks: element.content.map { content throws(ConstructSectionError) in
+            switch content {
+            case .text(let text):
+                return .regular(text)
+            case .element(let customElement):
+                switch customElement.name {
+                case "footnote":
+                    return .footnote(customElement.content.textContent)
+                default:
+                    throw .unexpectedElement(customElement.name)
+                }
+            }
+        })
         let defaultValue = element[attribute: "initial-value"].flatMap { Bool($0) } ?? false
         let expectedValue = element[attribute: "expected-value"].flatMap { Bool($0) }
-        return .toggle(.init(id: id, prompt: prompt, initialValue: defaultValue, expectedValue: expectedValue))
+        return .toggle(.init(id: id, textContent: textContent, initialValue: defaultValue, expectedValue: expectedValue))
     }
     
     // swiftlint:disable:next function_body_length cyclomatic_complexity
@@ -34,27 +47,27 @@ extension ConsentDocument.Section {
         guard let id = element[attribute: "id"], !id.isEmpty else {
             throw .missingAttribute("id")
         }
-        var prompt = ""
+        var textContent = ConsentDocument.InteractiveSectionTextContent()
         var options: [ConsentDocument.SelectionOption] = []
         for thing in element.content {
             switch thing {
             case .text(let text):
-                if prompt.isEmpty {
-                    prompt = text
-                } else {
-                    prompt.append(" " + text)
-                }
+                textContent.blocks.append(.regular(text))
             case .element(let element):
-                guard element.name == "option" else {
+                switch element.name {
+                case "footnote":
+                    textContent.blocks.append(.footnote(element.content.textContent))
+                case "option":
+                    guard let optionId = element[attribute: "id"], !id.isEmpty else {
+                        throw .missingAttribute("option.id")
+                    }
+                    guard case .text(let prompt) = element.content.first else {
+                        throw .missingField("option.content")
+                    }
+                    options.append(.init(id: optionId, title: prompt))
+                default:
                     throw .unexpectedElement(element.name)
                 }
-                guard let optionId = element[attribute: "id"], !id.isEmpty else {
-                    throw .missingAttribute("option.id")
-                }
-                guard case .text(let prompt) = element.content.first else {
-                    throw .missingField("option.content")
-                }
-                options.append(.init(id: optionId, title: prompt))
             }
         }
         let initialValue = element[attribute: "initial-value"] ?? ConsentDocument.SelectConfig.emptySelection
@@ -79,7 +92,7 @@ extension ConsentDocument.Section {
         }()
         return .select(.init(
             id: id,
-            prompt: prompt,
+            textContent: textContent,
             options: options,
             initialValue: initialValue,
             expectedSelection: expectedSelection
@@ -91,5 +104,27 @@ extension ConsentDocument.Section {
             throw .missingField("id")
         }
         return .signature(.init(id: id))
+    }
+}
+
+
+extension Sequence where Element == MarkdownDocument.CustomElement.Content {
+    fileprivate var textContent: String {
+        reduce(into: "") { result, element in
+            switch element {
+            case .text(let string):
+                if result.isEmpty {
+                    result = string
+                } else {
+                    result.append("\n\n\(string)")
+                }
+            case .element(let customElement):
+                if result.isEmpty {
+                    result = customElement.content.textContent
+                } else {
+                    result.append("\n\n\(customElement.content.textContent)")
+                }
+            }
+        }
     }
 }

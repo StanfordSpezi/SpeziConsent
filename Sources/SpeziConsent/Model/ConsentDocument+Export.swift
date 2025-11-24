@@ -115,7 +115,7 @@ extension PDFRenderer {
         table.widths = [0.8, 0.2] // sadly can't make this dynamic :/
         table.style.outline = .none
         table[0, 0] = PDFTableCell(
-            content: try .init(content: toggleConfig.prompt),
+            content: try .init(content: toggleConfig.textContent.unstyledText),
             alignment: .left,
             style: cellStyle
         )
@@ -139,7 +139,7 @@ extension PDFRenderer {
         table.widths = [0.75, 0.25] // sadly can't make this dynamic :/
         table.style.outline = .none
         table[0, 0] = PDFTableCell(
-            content: try .init(content: selectConfig.prompt),
+            content: try .init(content: selectConfig.textContent.unstyledText),
             alignment: .left,
             style: cellStyle
         )

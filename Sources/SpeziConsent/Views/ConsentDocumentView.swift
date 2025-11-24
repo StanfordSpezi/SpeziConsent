@@ -32,25 +32,22 @@ public struct ConsentDocumentView: View {
     private let signatureDateFormat: Date.FormatStyle
     
     public var body: some View {
-//        GeometryReader { geometry in
-            MarkdownView(
-                markdownDocument: consentDocument.markdownDocument,
-                dividerRule: .init { blockIdx, _ -> Bool in
-                    let section = consentDocument.sections[blockIdx]
-                    let nextSection = consentDocument.sections[blockIdx + 1]
-                    return (section.isMarkdown && !nextSection.isMarkdown || !section.isMarkdown) && !nextSection.isSignature
-                }
-            ) { blockIdx, _ in
+        MarkdownView(
+            document: consentDocument.markdownDocument,
+            dividerRule: .init { blockIdx, _ -> Bool in
                 let section = consentDocument.sections[blockIdx]
-                if section.isSignature && blockIdx == consentDocument.sections.endIndex - 1 {
-                    // if the last section is a signature, we add a spacer.
-                    // this means that, if the consent is short, we push the signature field down all the way to the bottom of the screen.
-                    Spacer()
-                }
-                view(for: section)
+                let nextSection = consentDocument.sections[blockIdx + 1]
+                return (section.isMarkdown && !nextSection.isMarkdown || !section.isMarkdown) && !nextSection.isSignature
             }
-//            .frame(minHeight: geometry.size.height)
-//        }
+        ) { blockIdx, _ in
+            let section = consentDocument.sections[blockIdx]
+            if section.isSignature && blockIdx == consentDocument.sections.endIndex - 1 {
+                // if the last section is a signature, we add a spacer.
+                // this means that, if the consent is short, we push the signature field down all the way to the bottom of the screen.
+                Spacer()
+            }
+            view(for: section)
+        }
     }
     
     /// Creates a `ConsentDocumentView`, which renders a consent document with a markdown view.
@@ -80,10 +77,9 @@ public struct ConsentDocumentView: View {
             let _ = preconditionFailure("unreachable") // swiftlint:disable:this redundant_discardable_let
         case .toggle(let config):
             let valueBinding = consentDocument.binding(for: config)
-            Toggle(
-                config.prompt,
-                isOn: valueBinding
-            )
+            Toggle(isOn: valueBinding) {
+                TextContentView(content: config.textContent)
+            }
             .accessibilityIdentifier(for: config)
             // Goal: we want a Toggle that can be toggled by tapping anywhere in its frame.
             // Issue: using only `.onTapGesture` doesn't quite work, since that'll only trigger for touches that are in the
@@ -130,7 +126,7 @@ extension ConsentDocumentView {
         
         var body: some View {
             HStack {
-                Text(config.prompt)
+                TextContentView(content: config.textContent)
                 Spacer()
                 Picker("", selection: $selection) {
                     Text(ConsentDocument.SelectConfig.emptySelectionDefaultTitle)
@@ -153,6 +149,28 @@ extension ConsentDocumentView {
                 nil
             case .option, .anything(allowEmptySelection: false):
                 selection == ConsentDocument.SelectConfig.emptySelection ? .red : nil
+            }
+        }
+    }
+}
+
+
+extension ConsentDocumentView {
+    private struct TextContentView: View {
+        let content: ConsentDocument.InteractiveSectionTextContent
+        
+        var body: some View {
+            VStack(alignment: .leading, spacing: 8) {
+                ForEach(Array(content.blocks.indices), id: \.self) { idx in
+                    switch content.blocks[idx] {
+                    case .regular(let text):
+                        Text(text)
+                    case .footnote(let text):
+                        Text(text)
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                    }
+                }
             }
         }
     }

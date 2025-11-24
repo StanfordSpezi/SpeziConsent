@@ -44,6 +44,26 @@ extension ConsentDocument {
         let title: String
     }
     
+    struct InteractiveSectionTextContent: Hashable {
+        enum Block: Hashable {
+            case regular(String)
+            case footnote(String)
+        }
+        var blocks: [Block] = []
+        
+        var unstyledText: String {
+            blocks
+                .map {
+                    switch $0 {
+                    case .regular(let text), .footnote(let text):
+                        text
+                    }
+                }
+                .joined(separator: "\n")
+        }
+    }
+    
+    
     protocol InteractiveSectionProtocol: Hashable {
         associatedtype Value
         typealias StorageKeyPath = WritableKeyPath<UserResponses, [String: Value]>
@@ -62,7 +82,7 @@ extension ConsentDocument {
         static var userResponsesKeyPath: StorageKeyPath { \.toggles }
         
         let id: String
-        let prompt: String
+        let textContent: InteractiveSectionTextContent
         let initialValue: Bool
         let expectedValue: Bool? // swiftlint:disable:this discouraged_optional_boolean
         
@@ -98,7 +118,7 @@ extension ConsentDocument {
         static let emptySelection: String = ""
         
         let id: String
-        let prompt: String
+        let textContent: InteractiveSectionTextContent
         let options: [SelectionOption]
         let initialValue: Value
         let expectedSelection: ExpectedSelection
@@ -114,6 +134,7 @@ extension ConsentDocument {
             }
         }
     }
+    
     
     struct SignatureConfig: InteractiveSectionProtocol {
         typealias Value = ConsentDocument.SignatureStorage

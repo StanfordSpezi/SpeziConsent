@@ -253,7 +253,7 @@ public final class ConsentDocument: Sendable {
         do {
             markdownDocument = try MarkdownDocument(
                 processing: markdown,
-                customElementNames: ["toggle", "select", "signature", "option"]
+                customElementNames: ["toggle", "select", "signature", "option", "footnote"]
             )
         } catch {
             throw LoadError.failedToParse(error)
