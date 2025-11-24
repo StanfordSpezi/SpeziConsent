@@ -22,6 +22,7 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
 
 <select id=select2 expected-value=n>
     Would you like to be contacted about your car's extended warranty?
+    <footnote>You can change this selection later on.</>
     <option id=y>Yes</>
     <option id=n>No</>
 </select>
@@ -32,17 +33,6 @@ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliqu
 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-
-<select id=short-term-physical-activity-trial expected-value="*">
-Would you like to join the short term physical activity promoting trial?
-
-<footnote>
-If you select **yes**, you will go straight from the baseline monitoring week into the randomized crossover trial.
-If you select **no**, you will still be able to use the base My Heart Counts application.
-</footnote>
-<option id=short-term-physical-activity-trial-yes>Yes</option>
-<option id=short-term-physical-activity-trial-no>No</option>
-</select>
 
 
 Thank you for participating in our study!

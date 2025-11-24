@@ -28,11 +28,12 @@ jobs:
         config: [Debug]
         platform:
           - name: iOS
-            destination: 'platform=iOS Simulator,name=iPhone 17 Pro'
+            destination: 'platform=iOS Simulator,name=iPhone 17 Pro Max'
           - name: macOS
             destination: 'platform=macOS,name=My Mac'
           - name: visionOS
             destination: 'platform=visionOS Simulator,name=Apple Vision Pro'
+      fail-fast: false
     with:
       runsonlabels: '["macOS", "self-hosted"]'
       scheme: SpeziConsent
@@ -48,7 +49,7 @@ jobs:
         config: [Debug]
         platform:
           - name: iOS
-            destination: 'platform=iOS Simulator,name=iPhone 17 Pro'
+            destination: 'platform=iOS Simulator,name=iPhone 17 Pro Max'
           - name: iPadOS
             destination: 'platform=iOS Simulator,name=iPad Air 13-inch (M3)'
           - name: visionOS
