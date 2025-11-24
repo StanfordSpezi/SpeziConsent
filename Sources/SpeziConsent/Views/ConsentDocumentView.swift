@@ -164,15 +164,17 @@ extension ConsentDocumentView {
             MarkdownView(document: text, dividerRule: .never) { _, element in
                 switch element.name {
                 case "footnote":
-                    Group {
+                    let plainText = String(element.content.plainTextContents.trimmingWhitespaceInLines())
+                    HStack {
                         if let attrString = try? AttributedString(
-                            markdown: element.content.plainTextContents,
+                            markdown: plainText,
                             options: .init(interpretedSyntax: .inlineOnly, failurePolicy: .returnPartiallyParsedIfPossible)
                         ) {
                             Text(attrString)
                         } else {
-                            Text(element.content.plainTextContents)
+                            Text(plainText)
                         }
+                        Spacer()
                     }
                     .font(.footnote)
                     .foregroundStyle(.secondary)

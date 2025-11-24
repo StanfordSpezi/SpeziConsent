@@ -419,3 +419,14 @@ extension ConsentDocument: Identifiable, Hashable {
         hasher.combine(ObjectIdentifier(self))
     }
 }
+
+
+extension StringProtocol {
+    func trimmingWhitespaceInLines() -> some Sequence<Character> {
+        self
+            .lazy
+            .split(separator: "\n")
+            .map { $0.trimmingWhitespace() }
+            .joined(by: "\n")
+    }
+}

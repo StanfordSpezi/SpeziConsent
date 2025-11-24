@@ -28,7 +28,8 @@ let package = Package(
         .package(url: "https://github.com/StanfordSpezi/SpeziViews.git", from: "1.12.0"),
         .package(url: "https://github.com/StanfordSpezi/SpeziOnboarding.git", from: "2.0.0"),
         .package(url: "https://github.com/techprimate/TPPDF.git", from: "2.6.1"),
-        .package(url: "https://github.com/gonzalezreal/swift-markdown-ui.git", from: "2.4.1")
+        .package(url: "https://github.com/gonzalezreal/swift-markdown-ui.git", from: "2.4.1"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.18.7")
     ] + swiftLintPackage(),
     targets: [
         .target(
@@ -53,9 +54,10 @@ let package = Package(
             name: "SpeziConsentTests",
             dependencies: [
                 .target(name: "SpeziConsent"),
-                .product(name: "SpeziFoundation", package: "SpeziFoundation")
+                .product(name: "SpeziFoundation", package: "SpeziFoundation"),
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
             ],
-            resources: [.process("Resources")],
+            resources: [.process("Resources"), .process("__Snapshots__")],
             swiftSettings: [.enableUpcomingFeature("ExistentialAny")],
             plugins: [] + swiftLintPlugin()
         )
