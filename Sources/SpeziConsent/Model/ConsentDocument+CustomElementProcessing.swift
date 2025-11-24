@@ -17,46 +17,42 @@ extension ConsentDocument.Section {
         case other(String)
     }
     
-    static func toggle(_ element: MarkdownDocument.CustomElement) throws(ConstructSectionError) -> Self {
+    /// The HTML tag names that are allowed to appear in a `toggle` or `select` element's children that should be used to build up the element's text content.
+    private static let allowedNestedTextContentTagNames: Set = ["footnote"]
+    
+    static func toggle(_ element: MarkdownDocument.CustomElement, in document: MarkdownDocument) throws(ConstructSectionError) -> Self {
         guard let id = element[attribute: "id"], !id.isEmpty else {
             throw .missingAttribute("id")
         }
         guard !element.content.isEmpty else {
             throw .missingField("prompt")
         }
-        let textContent = try ConsentDocument.InteractiveSectionTextContent(blocks: element.content.map { content throws(ConstructSectionError) in
-            switch content {
-            case .text(let text):
-                return .regular(text)
-            case .element(let customElement):
-                switch customElement.name {
-                case "footnote":
-                    return .footnote(customElement.content.textContent)
-                default:
-                    throw .unexpectedElement(customElement.name)
-                }
-            }
-        })
         let defaultValue = element[attribute: "initial-value"].flatMap { Bool($0) } ?? false
         let expectedValue = element[attribute: "expected-value"].flatMap { Bool($0) }
-        return .toggle(.init(id: id, textContent: textContent, initialValue: defaultValue, expectedValue: expectedValue))
+        return .toggle(.init(
+            id: id,
+            text: MarkdownDocument(
+                blocks: element.content,
+                allowedNestedCustomElements: allowedNestedTextContentTagNames,
+                baseUrl: document.baseUrl
+            ),
+            initialValue: defaultValue,
+            expectedValue: expectedValue
+        ))
     }
     
     // swiftlint:disable:next function_body_length cyclomatic_complexity
-    static func select(_ element: MarkdownDocument.CustomElement) throws(ConstructSectionError) -> Self {
+    static func select(_ element: MarkdownDocument.CustomElement, in document: MarkdownDocument) throws(ConstructSectionError) -> Self {
         guard let id = element[attribute: "id"], !id.isEmpty else {
             throw .missingAttribute("id")
         }
-        var textContent = ConsentDocument.InteractiveSectionTextContent()
         var options: [ConsentDocument.SelectionOption] = []
         for thing in element.content {
             switch thing {
-            case .text(let text):
-                textContent.blocks.append(.regular(text))
+            case .text:
+                break
             case .element(let element):
                 switch element.name {
-                case "footnote":
-                    textContent.blocks.append(.footnote(element.content.textContent))
                 case "option":
                     guard let optionId = element[attribute: "id"], !id.isEmpty else {
                         throw .missingAttribute("option.id")
@@ -66,7 +62,11 @@ extension ConsentDocument.Section {
                     }
                     options.append(.init(id: optionId, title: prompt))
                 default:
-                    throw .unexpectedElement(element.name)
+                    if allowedNestedTextContentTagNames.contains(element.name) {
+                        break
+                    } else {
+                        throw .unexpectedElement(element.name)
+                    }
                 }
             }
         }
@@ -92,7 +92,11 @@ extension ConsentDocument.Section {
         }()
         return .select(.init(
             id: id,
-            textContent: textContent,
+            text: MarkdownDocument(
+                blocks: element.content,
+                allowedNestedCustomElements: allowedNestedTextContentTagNames,
+                baseUrl: document.baseUrl
+            ),
             options: options,
             initialValue: initialValue,
             expectedSelection: expectedSelection
@@ -108,23 +112,33 @@ extension ConsentDocument.Section {
 }
 
 
-extension Sequence where Element == MarkdownDocument.CustomElement.Content {
-    fileprivate var textContent: String {
-        reduce(into: "") { result, element in
-            switch element {
-            case .text(let string):
-                if result.isEmpty {
-                    result = string
-                } else {
-                    result.append("\n\n\(string)")
+extension MarkdownDocument {
+    /// Creates a `MarkdownDocument` from the children of a `CustomElement`.
+    ///
+    /// - parameter children: The `MarkdownDocument.CustomElement.Content` children of the custom element
+    /// - parameter allowedNestedCustomElements: The HTML tag names that are allowed to appear in `children`.
+    ///     Any children whose tag names are not explicitly allowed will be skipped.
+    /// - parameter baseUrl: The base URL of the resulting document.
+    init(
+        blocks children: some Sequence<MarkdownDocument.CustomElement.Content>,
+        allowedNestedCustomElements: Set<String>,
+        baseUrl: URL?
+    ) {
+        self.init(
+            metadata: [:],
+            blocks: children.compactMap { content in
+                switch content {
+                case .text(let text):
+                    .markdown(id: nil, rawContents: text)
+                case .element(let element):
+                    if allowedNestedCustomElements.contains(element.name) {
+                        .customElement(element)
+                    } else {
+                        nil
+                    }
                 }
-            case .element(let customElement):
-                if result.isEmpty {
-                    result = customElement.content.textContent
-                } else {
-                    result.append("\n\n\(customElement.content.textContent)")
-                }
-            }
-        }
+            },
+            baseUrl: baseUrl
+        )
     }
 }

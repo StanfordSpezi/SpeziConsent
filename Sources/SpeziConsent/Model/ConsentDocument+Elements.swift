@@ -8,6 +8,7 @@
 
 import Foundation
 import struct PencilKit.PKDrawing
+import SpeziFoundation
 
 
 extension ConsentDocument {
@@ -82,7 +83,7 @@ extension ConsentDocument {
         static var userResponsesKeyPath: StorageKeyPath { \.toggles }
         
         let id: String
-        let textContent: InteractiveSectionTextContent
+        let text: MarkdownDocument
         let initialValue: Bool
         let expectedValue: Bool? // swiftlint:disable:this discouraged_optional_boolean
         
@@ -118,7 +119,7 @@ extension ConsentDocument {
         static let emptySelection: String = ""
         
         let id: String
-        let textContent: InteractiveSectionTextContent
+        let text: MarkdownDocument
         let options: [SelectionOption]
         let initialValue: Value
         let expectedSelection: ExpectedSelection

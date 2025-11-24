@@ -78,7 +78,7 @@ public struct ConsentDocumentView: View {
         case .toggle(let config):
             let valueBinding = consentDocument.binding(for: config)
             Toggle(isOn: valueBinding) {
-                TextContentView(content: config.textContent)
+                InteractiveElementLabel(text: config.text)
             }
             .accessibilityIdentifier(for: config)
             // Goal: we want a Toggle that can be toggled by tapping anywhere in its frame.
@@ -126,7 +126,7 @@ extension ConsentDocumentView {
         
         var body: some View {
             HStack {
-                TextContentView(content: config.textContent)
+                InteractiveElementLabel(text: config.text)
                 Spacer()
                 Picker("", selection: $selection) {
                     Text(ConsentDocument.SelectConfig.emptySelectionDefaultTitle)
@@ -156,20 +156,27 @@ extension ConsentDocumentView {
 
 
 extension ConsentDocumentView {
-    private struct TextContentView: View {
-        let content: ConsentDocument.InteractiveSectionTextContent
+    private struct InteractiveElementLabel: View {
+        let text: MarkdownDocument
         
         var body: some View {
-            VStack(alignment: .leading, spacing: 8) {
-                ForEach(Array(content.blocks.indices), id: \.self) { idx in
-                    switch content.blocks[idx] {
-                    case .regular(let text):
-                        Text(text)
-                    case .footnote(let text):
-                        Text(text)
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
+            MarkdownView(document: text, dividerRule: .never) { _, element in
+                switch element.name {
+                case "footnote":
+                    Group {
+                        if let attrString = try? AttributedString(
+                            markdown: element.content.plainTextContents,
+                            options: .init(interpretedSyntax: .inlineOnly, failurePolicy: .returnPartiallyParsedIfPossible)
+                        ) {
+                            Text(attrString)
+                        } else {
+                            Text(element.content.plainTextContents)
+                        }
                     }
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                default:
+                    EmptyView()
                 }
             }
         }
