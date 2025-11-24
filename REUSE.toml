@@ -4,6 +4,7 @@ version = 1
 path = [
     "Sources/SpeziConsent/SpeziConsent.docc/Resources/**",
     "Tests/SpeziConsentTests/Resources/**",
+    "Tests/SpeziConsentTests/__Snapshots__/**",
     "Tests/UITests/TestApp/Resources/**"
 ]
 SPDX-FileCopyrightText = "2025 Stanford University and the project authors (see CONTRIBUTORS.md)"

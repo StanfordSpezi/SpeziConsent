@@ -7,8 +7,8 @@
 //
 
 #if os(iOS)
-import SpeziConsent
 import SnapshotTesting
+import SpeziConsent
 import SwiftUI
 import Testing
 
