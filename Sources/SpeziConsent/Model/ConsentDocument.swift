@@ -8,10 +8,10 @@
 
 private import Foundation
 public import Observation
+public import class PDFKit.PDFDocument
 public import PencilKit
 public import SpeziFoundation
 import SwiftUI
-public import class PDFKit.PDFDocument
 
 
 /// Represents and manages a Markdown-based (potentially interactive) Consent Document.

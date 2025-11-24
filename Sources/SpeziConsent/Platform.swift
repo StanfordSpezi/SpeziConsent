@@ -7,8 +7,8 @@
 //
 
 #if canImport(UIKit)
-public import class UIKit.UIFont
 public import class UIKit.UIColor
+public import class UIKit.UIFont
 /// :nodoc:
 @_documentation(visibility: internal)
 public typealias UINSFont = UIFont
@@ -16,8 +16,8 @@ public typealias UINSFont = UIFont
 @_documentation(visibility: internal)
 public typealias UINSColor = UIFont
 #elseif canImport(AppKit)
-public import class AppKit.NSFont
 public import class AppKit.NSColor
+public import class AppKit.NSFont
 /// :nodoc:
 @_documentation(visibility: internal)
 public typealias UINSFont = NSFont
