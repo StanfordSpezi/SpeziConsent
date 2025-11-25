@@ -24,7 +24,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/StanfordSpezi/Spezi.git", from: "1.8.0"),
-        .package(url: "https://github.com/StanfordSpezi/SpeziFoundation.git", revision: "779d0b12f64496e3a4c1b0e81bba408e6041d710"),
+        .package(url: "https://github.com/StanfordSpezi/SpeziFoundation.git", from: "2.5.1"),
         .package(url: "https://github.com/StanfordSpezi/SpeziViews.git", from: "1.12.0"),
         .package(url: "https://github.com/StanfordSpezi/SpeziOnboarding.git", from: "2.0.0"),
         .package(url: "https://github.com/techprimate/TPPDF.git", from: "2.6.1"),
