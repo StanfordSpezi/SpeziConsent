@@ -54,6 +54,7 @@ jobs:
             destination: 'platform=iOS Simulator,name=iPad Air 13-inch (M3)'
           - name: visionOS
             destination: 'platform=visionOS Simulator,name=Apple Vision Pro'
+      fail-fast: false
     with:
       runsonlabels: '["macOS", "self-hosted"]'
       path: 'Tests/UITests'
