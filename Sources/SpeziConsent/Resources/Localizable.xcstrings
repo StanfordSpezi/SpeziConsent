@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "" : {
-
-    },
     "CONSENT_ACTION" : {
       "localizations" : {
         "de" : {
@@ -327,9 +324,6 @@
           }
         }
       }
-    },
-    "X" : {
-
     }
   },
   "version" : "1.0"
