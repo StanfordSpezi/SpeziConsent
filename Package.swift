@@ -14,6 +14,7 @@ import PackageDescription
 
 let package = Package(
     name: "SpeziConsent",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v17),
         .visionOS(.v1),
