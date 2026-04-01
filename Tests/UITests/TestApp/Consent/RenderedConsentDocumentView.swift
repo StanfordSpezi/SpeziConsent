@@ -61,7 +61,7 @@ struct RenderedConsentDocumentView: View {
     }
     
     @ViewBuilder
-    private func content(for exportResult: ConsentDocument.ExportResult) -> some View {
+    private func content(for exportResult: ConsentDocument.ExportResult) -> some View { // swiftlint:disable:this function_body_length
         Section {
             if exportResult.pdf.pageCount > 0 {
                 Label {
