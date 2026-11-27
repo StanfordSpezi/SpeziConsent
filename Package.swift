@@ -55,7 +55,9 @@ let package = Package(
             dependencies: [
                 .target(name: "SpeziConsent"),
                 .product(name: "SpeziFoundation", package: "SpeziFoundation"),
-                .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
+                // The snapshot tests only run on iOS. Linking it elsewhere also breaks the visionOS build:
+                // swift-snapshot-testing 1.19.1 and later don't compile for visionOS (pointfreeco/swift-snapshot-testing#1134).
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing", condition: .when(platforms: [.iOS]))
             ],
             resources: [.process("Resources"), .process("__Snapshots__")],
             swiftSettings: [.enableUpcomingFeature("ExistentialAny")],
