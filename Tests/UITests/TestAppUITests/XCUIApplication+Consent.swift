@@ -157,8 +157,28 @@ extension XCUIApplication {
         
         shareButton.tap()
         assertShareSheetTextElementExists(consentTitle)
-        navigationBars["UIActivityContentView"].buttons["header.closeButton"].tap()
-        
+        dismissShareSheet()
+        // The button can sit below the fold (onboarding), where it isn't hittable until `tap()` scrolls to it.
+        XCTAssert(continueButton.wait(for: \.isEnabled, toEqual: true, timeout: 5))
         continueButton.tap()
+    }
+
+    /// Closes the share sheet.
+    ///
+    /// The share sheet is a remote view: on iOS 27 its header can appear only after the sheet itself, and a tap on the close button
+    /// while the sheet is still sliding in or out is swallowed. The close button is therefore awaited and tapped until the sheet is gone.
+    private func dismissShareSheet(file: StaticString = #filePath, line: UInt = #line) {
+        let header = navigationBars["UIActivityContentView"]
+        let closeButton = header.buttons["header.closeButton"]
+        XCTAssert(closeButton.waitForExistence(timeout: 10), "The share sheet's close button did not appear.", file: file, line: line)
+        for _ in 0..<3 where header.exists {
+            if closeButton.wait(for: \.isHittable, toEqual: true, timeout: 5) {
+                closeButton.tap()
+            }
+            if header.waitForNonExistence(timeout: 5) {
+                return
+            }
+        }
+        XCTAssertFalse(header.exists, "The share sheet did not close.", file: file, line: line)
     }
 }
